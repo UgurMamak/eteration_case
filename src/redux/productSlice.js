@@ -81,14 +81,32 @@ export const productSlice = createSlice({
 
     getFilteredProducts: (state) => {
       const choices = { ...state.selectedFilters };
+      let filteredData = [];
+      let productList = state.products;
+
       // (product.brand == 'Tesla' || product.brand == 'Ford') && (product.model=='a1' || product.model=='a2')
       if (Object.keys(choices).length > 0) {
-        let filteredData = state.products.filter(product => {
+        console.log("Object.keys(choices).length > 0");
+
+        if (choices['search'].length>0) {
+          let searchTerm = choices['search'][0];
+          productList = state.products.filter((item) => {
+            return item.name.toLowerCase().includes(searchTerm.toLowerCase());
+          });
+        }
+
+
+        filteredData = productList.filter(product => {
           let statusArr = [];
           for (let key in choices) {
             if (key === 'sort' || key === 'search') {
               continue;
             }
+
+            if (choices[key].length === 0) {
+              continue;
+            }
+
             let status = choices[key].includes(product[key]);
             statusArr.push(status);
           }
@@ -117,8 +135,10 @@ export const productSlice = createSlice({
 
         }
 
+        console.log("son==", filteredData);
         state.filteredProducts = filteredData;
       } else {
+        console.log("ELSEELSE Object.keys(choices).length > 0");
         state.filteredProducts = state.products;
       }
     },

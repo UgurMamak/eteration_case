@@ -34,7 +34,6 @@ export default function Filter() {
     const value = e.target.value;
     const isChecked = e.target.checked;
 
-    console.log("filterName=", filterName);
     let tempSelectedFilters = { ...selectedFilters };
 
     if (!tempSelectedFilters.hasOwnProperty(filterName)) {
@@ -53,9 +52,9 @@ export default function Filter() {
       tempSelectedFilters = {
         ...tempSelectedFilters,
         [filterName]: tempSelectedFilters[filterName].filter((v) => v !== value)
-      }
-    }
+      };
 
+    }
     dispatch(updateSelectedFilters(tempSelectedFilters));
     dispatch(getFilteredProducts());
 
@@ -105,7 +104,12 @@ export default function Filter() {
     searchParams.delete('page');
 
     for (let key in selectedFilters) {
-      searchParams.set(key, selectedFilters[key]);
+      console.log("for loop=", selectedFilters[key]);
+      if (selectedFilters[key].length === 0) {
+        searchParams.delete(key);
+      } else {
+        searchParams.set(key, selectedFilters[key]);
+      }
     }
 
     navigate(`?${searchParams.toString()}`)
@@ -134,33 +138,33 @@ export default function Filter() {
   const renderFilterITem = (filter) => {
     const isSort = filter.filterName === 'sort'
 
-  let list =  filter.choices.map((item, index) => {
+    let list = filter.choices.map((item, index) => {
 
       if (isSort) {
-        return(
+        return (
           <Form.Check
-          key={index}
-          label={item.title}
-          name={filter.filterName}
-          type={filter.type === 'multiselect' ? 'checkbox' : 'radio'}
-          id={item.value}
-          value={item.value}
-          onChange={(e) => filter.type === 'multiselect' ? checkboxFilterEvent(e, filter.filterName) : radioFilterEvent(e, filter.filterName)}
-          checked={selectedFilters[filter.filterName] ? selectedFilters[filter.filterName].includes(item.value) : false}
-        />
+            key={index}
+            label={item.title}
+            name={filter.filterName}
+            type={filter.type === 'multiselect' ? 'checkbox' : 'radio'}
+            id={item.value}
+            value={item.value}
+            onChange={(e) => filter.type === 'multiselect' ? checkboxFilterEvent(e, filter.filterName) : radioFilterEvent(e, filter.filterName)}
+            checked={selectedFilters[filter.filterName] ? selectedFilters[filter.filterName].includes(item.value) : false}
+          />
         )
       } else {
-        return(
+        return (
           <Form.Check
-          key={index}
-          label={item}
-          name={filter.filterName}
-          type={filter.type === 'multiselect' ? 'checkbox' : 'radio'}
-          id={item}
-          value={item}
-          onChange={(e) => filter.type === 'multiselect' ? checkboxFilterEvent(e, filter.filterName) : radioFilterEvent(e, filter.filterName)}
-          checked={selectedFilters[filter.filterName] ? selectedFilters[filter.filterName].includes(item) : false}
-        />
+            key={index}
+            label={item}
+            name={filter.filterName}
+            type={filter.type === 'multiselect' ? 'checkbox' : 'radio'}
+            id={item}
+            value={item}
+            onChange={(e) => filter.type === 'multiselect' ? checkboxFilterEvent(e, filter.filterName) : radioFilterEvent(e, filter.filterName)}
+            checked={selectedFilters[filter.filterName] ? selectedFilters[filter.filterName].includes(item) : false}
+          />
         )
       }
     });

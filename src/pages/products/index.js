@@ -6,8 +6,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ProductCard from '../../components/product-card';
 import Pagination from '../../components/pagination';
-import { useNavigate,  useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Filter from '../../components/filter';
+import Spinner from 'react-bootstrap/Spinner';
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -22,21 +23,21 @@ export default function Products() {
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("page",pageNumber);
+    searchParams.set("page", pageNumber);
     navigate(`?${searchParams.toString()}`)
   }
 
   useEffect(() => {
-    dispatch(getProducts()).then(()=>{
+    dispatch(getProducts()).then(() => {
       dispatch(getFilterChoices())
       dispatch(getFilteredProducts());
     });
-    
+
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setCurrentPage(1);
-  },[products]);
+  }, [products]);
 
   if (products.length > 0) {
     const startIndex = (currentPage - 1) * itemPerPage;
@@ -48,7 +49,7 @@ export default function Products() {
       <Container>
         <Row>
           <Col sm={2}>
-            <Filter/>
+            <Filter />
           </Col>
           <Col sm={8}>
             <Container>
@@ -74,6 +75,6 @@ export default function Products() {
     )
   }
   return (
-    <div>Loading....</div>
+    <Spinner animation="border" />
   )
 }
