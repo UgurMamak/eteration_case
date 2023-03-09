@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -8,12 +7,10 @@ import Header from './components/header';
 import NotFound from './pages/not-found';
 
 function App() {
-  console.log("APP");
   return (
     <BrowserRouter>
      <Header/>
     <Routes>
-     
       <Route path='/' element={<Products/>} />
       <Route path='*' element={<NotFound/>} />
     </Routes>

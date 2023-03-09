@@ -24,12 +24,39 @@ export const productSlice = createSlice({
   },
   reducers: {
     getFilterChoices: (state) => {
+
+      state.filters.push({
+        title: 'Sort By',
+        filterName: 'sort',
+        type: 'single',
+        choices2: ['a', 'b', 'c', 'd'],
+        choices: [
+          {
+            value: 'date-asc',
+            title: 'Old to new'
+          },
+          {
+            value: 'date-desc',
+            title: 'New to old'
+          },
+          {
+            value: 'price-desc',
+            title: 'Price hight to low'
+          },
+          {
+            value: 'price-asc',
+            title: 'Price low to High'
+          }
+        ]
+      });
+
       const tempModels = state.products.map(item => item.model);
       const model = tempModels.filter((item, index) => tempModels.indexOf(item) === index);
 
       state.filters.push({
         title: 'Models',
         filterName: 'model',
+        type: 'multiselect',
         choices: model,
       });
 
@@ -39,6 +66,7 @@ export const productSlice = createSlice({
       state.filters.push({
         title: 'Brands',
         filterName: 'brand',
+        type: 'multiselect',
         choices: brand,
       });
 
@@ -52,23 +80,46 @@ export const productSlice = createSlice({
     },
 
     getFilteredProducts: (state) => {
-
       const choices = { ...state.selectedFilters };
-      let filterStatus = true;
-
       // (product.brand == 'Tesla' || product.brand == 'Ford') && (product.model=='a1' || product.model=='a2')
-      if(Object.keys(choices).length>0){
-        let filteredData = state.products.filter(product =>{
-          let statusArr=[];
-           for(let key in choices){
+      if (Object.keys(choices).length > 0) {
+        let filteredData = state.products.filter(product => {
+          let statusArr = [];
+          for (let key in choices) {
+            if (key === 'sort' || key === 'search') {
+              continue;
+            }
             let status = choices[key].includes(product[key]);
             statusArr.push(status);
-           }
-          return statusArr.reduce((accumulator, currentValue)=>accumulator && currentValue);
+          }
+          if (statusArr.length > 0) {
+            return statusArr.reduce((accumulator, currentValue) => accumulator && currentValue);
+          }
+          return true;
         });
+
+        if (choices['sort']) {
+          const arr = choices['sort'][0].split('-');
+          let key = arr[0] === 'date' ? 'createdAt' : arr[0];
+          const sort = arr[1];
+
+          if (sort === 'asc') {
+            key === 'createdAt' ?
+              filteredData.sort((a, b) => new Date(a[key]) - new Date(b[key]))
+              : filteredData.sort((a, b) => a[key] - b[key]);
+          }
+
+          if (sort === 'desc') {
+            key === 'createdAt' ?
+              filteredData.sort((a, b) => new Date(b[key]) - new Date(a[key]))
+              : filteredData.sort((a, b) => b[key] - a[key]);
+          }
+
+        }
+
         state.filteredProducts = filteredData;
-      }else{
-        state.filteredProducts = state.products; 
+      } else {
+        state.filteredProducts = state.products;
       }
     },
   },

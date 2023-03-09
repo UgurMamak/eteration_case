@@ -34,6 +34,10 @@ export default function Products() {
     
   }, []);
 
+  useEffect(()=>{
+    setCurrentPage(1);
+  },[products]);
+
   if (products.length > 0) {
     const startIndex = (currentPage - 1) * itemPerPage;
     const endIndex = startIndex + itemPerPage;

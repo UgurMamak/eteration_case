@@ -6,7 +6,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-export default function Index() {
+import SearchBox from '../search-box';
+
+export default function Header() {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -34,15 +36,7 @@ export default function Index() {
               Link
             </Nav.Link>
           </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+          <SearchBox/>
         </Navbar.Collapse>
       </Container>
     </Navbar>
