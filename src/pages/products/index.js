@@ -49,14 +49,14 @@ export default function Products() {
     return (
       <Container>
         <Row>
-          <Col sm={2}>
+          <Col lg={2}>
             <Filter />
           </Col>
-          <Col sm={8}>
+          <Col lg={8}>
             <Container>
               <Row>
                 {currentProducts.map((item) => (
-                  <Col key={item.id} sm={3}>
+                  <Col className='d-flex flex-column' key={item.id} xs={6} md={4} xl={3}>
                     <ProductCard data={item} />
                   </Col>
                 ))}
@@ -66,7 +66,7 @@ export default function Products() {
               </Row>
             </Container>
           </Col>
-          <Col sm={2}>
+          <Col lg={2}>
             <MiniBasket/>
           </Col>
         </Row>

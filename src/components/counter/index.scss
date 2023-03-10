@@ -1,0 +1,26 @@
+.counter{
+  display: flex;
+  align-items: center;
+
+  button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e8e3e3;
+    color: #000;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+  }
+  span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#2a59fe;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+  }
+}

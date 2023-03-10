@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { setBasket } from '../../redux/basketSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import usePrice from '../../hooks/usePrice';
 
 export default function ProductCard({ data }) {
   const dispatch = useDispatch();
+  const price = usePrice({price:parseFloat(data.price),currency:'TRY',region:'tr-TR'});
 
   const addToCart = (e,data) => {
     e.stopPropagation();
@@ -16,21 +18,16 @@ export default function ProductCard({ data }) {
   }
 
   return (
-    <Link to={`/product/${data.id}`}>
-    <Card>
+    <Link className='product-link' to={`/product/${data.id}`}>
+    <Card className='product-card mb-3'>
       <Card.Img variant="top" src={data.image} />
       <Card.Body>
-        <div className="price-container">
-          <span>{data.price}</span>
+        <div className="price-container mb-2">
+          <span className="price">{price}</span>
         </div>
-        <div className="price-container">
-          <span>Model--{data.model}</span>
-        </div>
-        <div className="price-container">
-          <span>Brand--{data.brand}</span>
-        </div>
-        <Card.Title>{data.name}</Card.Title>
-        <Button onClick={(e) => addToCart(e,data)} variant="primary">Add To Cart</Button>
+        <Card.Subtitle className="product-name mb-2">{data.name}</Card.Subtitle>
+
+        <Button className='basket-btn' onClick={(e) => addToCart(e,data)} variant="primary">Add To Cart</Button>
       </Card.Body>
     </Card>
     </Link>

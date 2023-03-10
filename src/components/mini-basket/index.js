@@ -21,14 +21,12 @@ export default function Index() {
 
   const renderBasketItem = () => {
     const list = basket.basketItem.map((item, index) => (
-      <ListGroup.Item key={item.product.id}>
-        <div>
-          <span>{item.product.name}</span>
-          <span>
-          <Price price = {parseFloat(item.product.price)} currency='TRY' region='tr-TR'  />
-          </span>
+      <ListGroup.Item className='d-flex' key={item.product.id}>
+        <div className='item d-flex flex-column'>
+          <span className='product-name'>{item.product.name}</span>
+          <span className='product-price'><Price price={parseFloat(item.product.price)} currency='TRY' region='tr-TR' /></span>
         </div>
-        <div>
+        <div className='item'>
           <Counter count={item.quantity} handleClick={(count) => { cartAction(item.product, count) }} />
         </div>
       </ListGroup.Item>
@@ -38,12 +36,12 @@ export default function Index() {
 
   const renderTotalPrice = () => {
     return (
-      <Card>
+      <Card className='mini-basket__card'>
         <Card.Body>
           <Card.Title>
             <span>Total Price</span>
             <span>
-              <Price price = {basket.basketTotalPrice} currency='TRY' region='tr-TR'  />
+              <Price price={basket.basketTotalPrice} currency='TRY' region='tr-TR' />
             </span>
           </Card.Title>
           <Button href="#">Checkout</Button>{' '}
@@ -52,17 +50,18 @@ export default function Index() {
     )
   }
 
-  if(basket.basketItem.length > 0){
+  if (basket.basketItem.length > 0) {
     return (
-      <>
-        <Card>
-          <Card.Header>Featured</Card.Header>
+      <div className='mini-basket'>
+        <div className='mini-basket__title'>Cart</div>
+        <Card className='mini-basket__card'>
           <ListGroup variant="flush">
             {renderBasketItem()}
           </ListGroup>
         </Card>
+        <div className='mini-basket__title--type2'>Cart</div>
         {renderTotalPrice()}
-      </>
+      </div>
     )
   }
 
