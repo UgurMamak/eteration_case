@@ -11,6 +11,13 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+export const getProductById = createAsyncThunk('products/getProductById',
+  async (id) => {
+    const url = `https://5fc9346b2af77700165ae514.mockapi.io/products/${id}`;
+    const response = await axios.get(url);
+    return response.data;
+  });
+
 export const productSlice = createSlice({
   name: 'products',
   initialState: {
@@ -19,8 +26,8 @@ export const productSlice = createSlice({
     selectedFilters: {},
     filters: [],
     loading: false,
-    value: 0,
-    tempSelectData: []
+
+    product: {}
   },
   reducers: {
     getFilterChoices: (state) => {
@@ -88,7 +95,7 @@ export const productSlice = createSlice({
       if (Object.keys(choices).length > 0) {
         console.log("Object.keys(choices).length > 0");
 
-        if (choices['search'].length>0) {
+        if (choices['search'].length > 0) {
           let searchTerm = choices['search'][0];
           productList = state.products.filter((item) => {
             return item.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -151,9 +158,14 @@ export const productSlice = createSlice({
         console.log("fullfilled");
         state.products = action.payload;
       })
-      .addCase(getProducts.rejected, (state, action) => {
+      .addCase(getProducts.rejected, (state) => {
         console.log("rejected")
       })
+      .addCase(getProductById.pending,(state)=>{})
+      .addCase(getProductById.fulfilled,(state,action)=>{
+        state.product = action.payload;
+      })
+      .addCase(getProductById.rejected,(state,action)=>{})
   },
 })
 

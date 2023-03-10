@@ -9,6 +9,7 @@ import Pagination from '../../components/pagination';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Filter from '../../components/filter';
 import Spinner from 'react-bootstrap/Spinner';
+import MiniBasket from '../../components/mini-basket';
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -65,7 +66,9 @@ export default function Products() {
               </Row>
             </Container>
           </Col>
-          <Col sm={2}>sm=8</Col>
+          <Col sm={2}>
+            <MiniBasket/>
+          </Col>
         </Row>
 
         {/* <Pagination currentPage={1} totalCount={totalCount} itemPerPage={itemPerPage} onPageChange={onPageChange} />

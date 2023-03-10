@@ -172,22 +172,6 @@ export default function Filter() {
     return list;
   }
 
-  const renderFilterITem2 = (filter) => {
-    const isSort = filter.filterName === 'sort'
-
-    filter.choices.map((item, index) => (
-      <Form.Check
-        key={index}
-        label={item}
-        name={filter.filterName}
-        type={filter.type === 'multiselect' ? 'checkbox' : 'radio'}
-        id={item}
-        value={item}
-        onChange={(e) => filter.type === 'multiselect' ? checkboxFilterEvent(e, filter.filterName) : radioFilterEvent(e, filter.filterName)}
-        checked={selectedFilters[filter.filterName] ? selectedFilters[filter.filterName].includes(item) : false}
-      />
-    ))
-  }
 
   return (
     <Accordion defaultActiveKey="0">
