@@ -6,29 +6,13 @@ import Accordion from 'react-bootstrap/Accordion';
 import Form from 'react-bootstrap/Form';
 import { useNavigate, useLocation } from 'react-router-dom';
 import filterItem from './filterItem';
+import uuid from 'react-uuid';
 
 export default function Filter() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const { selectedFilters, filters } = useSelector(state => state.productReducer);
-
-  const handleChange = (e) => {
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.delete('page');
-
-    if (location.search) {
-      navigate(`?${e.target.value}`);
-      console.log("if", location);
-    } else {
-      navigate(`?${e.target.value}`);
-      console.log("else", location);
-    }
-
-
-    //http://localhost:3000/?sortBy=createdAt&order=asc
-    //http://localhost:3000/&sortBy=createdAt&order=desc
-  }
 
   const checkboxFilterEvent = (e, filterName) => {
     const value = e.target.value;
@@ -86,7 +70,6 @@ export default function Filter() {
   }
 
   useEffect(() => {
-    console.log("Did mount");
     const obj = getUrlParametre();
     if (Object.keys(obj).length > 0) {
       dispatch(updateSelectedFilters(obj));
@@ -126,52 +109,21 @@ export default function Filter() {
 
 
   const renderFilterList = () => {
-    let list = filters.map((filter, filterIndex) => (
-      <FilterItem key={filter.filterName} eventKey={filter.filterName} title={filter.title}>
-        {renderFilterITem(filter)}
-      </FilterItem>
-    ));
-
-    return list;
-  }
-
-  const renderFilterITem = (filter) => {
-    const isSort = filter.filterName === 'sort'
-
-    let list = filter.choices.map((item, index) => {
-
-      if (isSort) {
-        return (
-          <Form.Check
-            key={index}
-            label={item.title}
-            name={filter.filterName}
-            type={filter.type === 'multiselect' ? 'checkbox' : 'radio'}
-            id={item.value}
-            value={item.value}
-            onChange={(e) => filter.type === 'multiselect' ? checkboxFilterEvent(e, filter.filterName) : radioFilterEvent(e, filter.filterName)}
-            checked={selectedFilters[filter.filterName] ? selectedFilters[filter.filterName].includes(item.value) : false}
-          />
-        )
-      } else {
-        return (
-          <Form.Check
-            key={index}
-            label={item}
-            name={filter.filterName}
-            type={filter.type === 'multiselect' ? 'checkbox' : 'radio'}
-            id={item}
-            value={item}
-            onChange={(e) => filter.type === 'multiselect' ? checkboxFilterEvent(e, filter.filterName) : radioFilterEvent(e, filter.filterName)}
-            checked={selectedFilters[filter.filterName] ? selectedFilters[filter.filterName].includes(item) : false}
-          />
-        )
-      }
+    let list = filters.map((filter, filterIndex) => {
+      const isSort = filter.filterName === 'sort'
+      let elementEvent = isSort ? radioFilterEvent : checkboxFilterEvent
+      return (
+        <FilterItem
+          handleChange={elementEvent}
+          filter={filter}
+          selectedFilters={selectedFilters}
+          key={uuid()}
+        />
+      )
     });
 
     return list;
   }
-
 
   return (
     <Accordion defaultActiveKey="0">

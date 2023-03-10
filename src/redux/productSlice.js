@@ -36,7 +36,7 @@ export const productSlice = createSlice({
         title: 'Sort By',
         filterName: 'sort',
         type: 'single',
-        choices2: ['a', 'b', 'c', 'd'],
+        searchable: false,
         choices: [
           {
             value: 'date-asc',
@@ -58,22 +58,39 @@ export const productSlice = createSlice({
       });
 
       const tempModels = state.products.map(item => item.model);
-      const model = tempModels.filter((item, index) => tempModels.indexOf(item) === index);
+      const model = tempModels.map((item, index) => {
+        if (tempModels.indexOf(item) === index) {
+          return {
+            title: item,
+            value: item
+          }
+        }
+      }).filter(item => !['', null, undefined].includes(item))
 
       state.filters.push({
         title: 'Models',
         filterName: 'model',
         type: 'multiselect',
+        searchable: true,
         choices: model,
       });
 
       const tempBrands = state.products.map(item => item.brand);
-      const brand = tempBrands.filter((item, index) => tempBrands.indexOf(item) === index);
+      const brand = tempBrands.map((item, index) => {
+        if (tempBrands.indexOf(item) === index) {
+          return {
+            title: item,
+            value: item
+          }
+        }
+      }).filter(item => !['', null, undefined].includes(item))
+
 
       state.filters.push({
         title: 'Brands',
         filterName: 'brand',
         type: 'multiselect',
+        searchable: true,
         choices: brand,
       });
 
@@ -93,9 +110,9 @@ export const productSlice = createSlice({
 
       // (product.brand == 'Tesla' || product.brand == 'Ford') && (product.model=='a1' || product.model=='a2')
       if (Object.keys(choices).length > 0) {
-        console.log("Object.keys(choices).length > 0");
 
-        if (choices['search'].length > 0) {
+
+        if (choices['search'] && choices['search'].length > 0) {
           let searchTerm = choices['search'][0];
           productList = state.products.filter((item) => {
             return item.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -142,7 +159,6 @@ export const productSlice = createSlice({
 
         }
 
-        console.log("son==", filteredData);
         state.filteredProducts = filteredData;
       } else {
         console.log("ELSEELSE Object.keys(choices).length > 0");
@@ -161,11 +177,11 @@ export const productSlice = createSlice({
       .addCase(getProducts.rejected, (state) => {
         console.log("rejected")
       })
-      .addCase(getProductById.pending,(state)=>{})
-      .addCase(getProductById.fulfilled,(state,action)=>{
+      .addCase(getProductById.pending, (state) => { })
+      .addCase(getProductById.fulfilled, (state, action) => {
         state.product = action.payload;
       })
-      .addCase(getProductById.rejected,(state,action)=>{})
+      .addCase(getProductById.rejected, (state, action) => { })
   },
 })
 
