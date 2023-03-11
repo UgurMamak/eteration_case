@@ -6,17 +6,15 @@ $color-blue-ribbon: #2a59fe;
     border: none;
     border-radius: 0;
     margin-bottom: 15px;
-  }
 
-
-  &__title{
-    color: $color-blue-ribbon;
-
-
-    &--type2{
-      color:red
+    .card-body{
+      padding: 10px;
     }
 
+  }
+
+  &__title{
+    color: #c8c4c4;
   }
 
   .list-group-item{
@@ -41,6 +39,20 @@ $color-blue-ribbon: #2a59fe;
 
     & + .item{
       margin-left: 8px;
+    }
+  }
+
+  .total-price-container{
+    margin-bottom:15px;
+    font-size: 14px;
+    font-weight: 4000;
+
+    .total-price-title{
+      color: #000;
+      margin-right: 5px;
+    }
+    .total-price{
+      color: $color-blue-ribbon;
     }
   }
 
