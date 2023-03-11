@@ -1,0 +1,29 @@
+.header-search-wrapper {
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(255, 255, 255, 0.98)
+    ),
+    linear-gradient(0deg, rgba(42, 89, 254, 0.3), rgba(42, 89, 254, 0.3)),
+    #000000;
+
+  .bi-search {
+    color: #8b8787;
+  }
+  .input-group-text {
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+  }
+
+  .form-control {
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+   
+
+    @media (min-width:$breakPointMD) {
+      width: 400px;
+    }
+  }
+}

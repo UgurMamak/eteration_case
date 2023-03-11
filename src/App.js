@@ -12,18 +12,20 @@ import { useEffect } from 'react';
 function App() {
   const dispatch = useDispatch();
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getBasket());
-  },[]);
+  }, []);
 
   return (
     <BrowserRouter>
-     <Header/>
-    <Routes>
-      <Route path='/' element={<Products/>} />
-      <Route path='/product/:id' element={<ProductDetail/>} />
-      <Route path='*' element={<NotFound/>} />
-    </Routes>
+      <Header />
+      <div className='pt-5'>
+        <Routes>
+          <Route path='/' element={<Products />} />
+          <Route path='/product/:id' element={<ProductDetail />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

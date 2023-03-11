@@ -20,6 +20,17 @@ $color-blue-ribbon: #2a59fe;
   .list-group-item{
     padding: 10px;
     border: none;
+    display: flex;
+    justify-content: space-between;
+
+    .item{
+      flex-grow: 1;
+  
+      & + .item{
+        margin-left: 8px;
+        flex-grow: 0;
+      }
+    }
   }
 
   .product-name {
@@ -27,19 +38,12 @@ $color-blue-ribbon: #2a59fe;
     font-size: 12px;
     line-height: 15px;
   }
+  
   .product-price {
     font-weight: 500;
     font-size: 10px;
     line-height: 12px;
     color: $color-blue-ribbon;
-  }
-
-  .item{
-    flex-grow: 1;
-
-    & + .item{
-      margin-left: 8px;
-    }
   }
 
   .total-price-container{
@@ -55,5 +59,4 @@ $color-blue-ribbon: #2a59fe;
       color: $color-blue-ribbon;
     }
   }
-
 }

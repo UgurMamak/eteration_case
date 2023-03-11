@@ -1,0 +1,32 @@
+$color-blue-ribbon: #2a59fe;
+
+.header {
+  background-color: $color-blue-ribbon;
+
+  .primary-navbar {
+    .navbar-brand {
+      color: #fff;
+      font-weight: bold;
+      margin-bottom: 10px;
+
+      @media (min-width: $breakPointLG) {
+        margin-bottom: 0;
+      }
+    }
+
+    .nav-link {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      color: #fff;
+    }
+  }
+
+  .search-box-container {
+    margin-bottom: 10px;
+
+    @media (min-width: $breakPointLG) {
+      margin-left: 100px;
+    }
+  }
+}

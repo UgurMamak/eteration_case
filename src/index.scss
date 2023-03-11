@@ -1,4 +1,17 @@
+$breakPointXS: 0;
+$breakPointSM: 576px;
+$breakPointMD: 768px;
+$breakPointLG: 992px;
+$breakPointXL: 1200px;
+$breakPointXXL: 1440px;
+$color-blue-ribbon: #2a59fe;
+
+
+@import './components/header/index.scss';
+@import './components/search-box/index.scss';
 @import './components/product-card/index.scss';
 @import './components/mini-basket/index.scss';
 @import './components/counter/index.scss';
 @import './components/filter/index.scss';
+@import './components/pagination/index.scss';
+@import './pages/product-detail/index.scss';

@@ -61,7 +61,7 @@ export default function Products() {
                   </Col>
                 ))}
               </Row>
-              <Row>
+              <Row className='d-flex'>
                 <Pagination currentPage={currentPage} totalCount={totalCount} itemPerPage={itemPerPage} onPageChange={onPageChange} />
               </Row>
             </Container>

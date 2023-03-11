@@ -5,40 +5,35 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
+import { useSelector } from 'react-redux';
 import SearchBox from '../search-box';
+import usePrice from '../../hooks/usePrice';
+import userIcon from './Profile.svg'
 
 export default function Header() {
+  const { basket } = useSelector(state => state.basketReducer);
+  const price = usePrice({ price: parseFloat(basket.basketTotalPrice) });
   return (
-    <Navbar bg="light" expand="lg">
-      <Container fluid>
-        <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
-            <Nav.Link href="#action1">Home</Nav.Link>
-            <Nav.Link href="#action2">Link</Nav.Link>
-            <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#" disabled>
-              Link
-            </Nav.Link>
-          </Nav>
-          <SearchBox/>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <header className='header'>
+      <Navbar className='primary-navbar' collapseOnSelect expand="lg">
+        <Container>
+          <Navbar.Brand href="#home">Eteration</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse>
+            <Nav className="search-box-container me-auto">
+              <SearchBox />
+            </Nav>
+            <Nav >
+              <Nav.Link href="#">
+                <i className="bi bi-wallet"></i> {price}
+              </Nav.Link>
+              <Nav.Link href="#">
+                <span> <img src={userIcon} /> </span> Kerem
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </header>
   )
 }

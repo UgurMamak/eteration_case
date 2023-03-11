@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getFilteredProducts, updateSelectedFilters } from '../../redux/productSlice';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 
 export default function SearchBox() {
@@ -17,7 +18,7 @@ export default function SearchBox() {
 
       tempSelectedFilters = {
         ...tempSelectedFilters,
-        search:[ text]
+        search: [text]
       };
 
       dispatch(updateSelectedFilters(tempSelectedFilters));
@@ -28,15 +29,20 @@ export default function SearchBox() {
 
 
   return (
+    <InputGroup className="header-search-wrapper">
+      <InputGroup.Text id="basic-addon1">
+        <i className="bi bi-search"></i>
+      </InputGroup.Text>
+      <Form.Control
+        type="search"
+        placeholder="Search"
+        className="me-2"
+        aria-label="Search"
+        onChange={(e) => setText(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
+    </InputGroup>
 
-    <Form.Control
-      type="search"
-      placeholder="Search"
-      className="me-2"
-      aria-label="Search"
-      onChange={(e) => setText(e.target.value)}
-      onKeyDown={handleKeyDown}
-    />
 
 
   )
