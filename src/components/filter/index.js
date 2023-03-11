@@ -5,6 +5,7 @@ import FilterItem from './filterItem';
 import { useNavigate, useLocation } from 'react-router-dom';
 import uuid from 'react-uuid';
 import Button from 'react-bootstrap/Button';
+import useUrlParametre from '../../hooks/useUrlParametre';
 
 export default function Filter({ show, showEvent }) {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function Filter({ show, showEvent }) {
   const dispatch = useDispatch();
   const { selectedFilters, filters } = useSelector(state => state.productReducer);
   const [selectedChoices, setSelectedChoices] = useState(selectedFilters);
+  const getUrlParamObject = useUrlParametre();
 
   const checkboxFilterEvent = (e, filterName) => {
     const value = e.target.value;
@@ -77,12 +79,11 @@ export default function Filter({ show, showEvent }) {
   }
 
   useEffect(() => {
-    const obj = getUrlParametre();
+    const obj = getUrlParamObject;
     if (Object.keys(obj).length > 0) {
       dispatch(updateSelectedFilters(obj));
       dispatch(getFilteredProducts());
     }
-
   }, []);
 
   useEffect(() => {
@@ -103,15 +104,6 @@ export default function Filter({ show, showEvent }) {
     }
 
     navigate(`?${searchParams.toString()}`)
-  }
-
-  const getUrlParametre = () => {
-    const params = new URLSearchParams(location.search);
-    const obj = {};
-    params.forEach(function (value, key) {
-      obj[key] = value.split(',');
-    });
-    return obj;
   }
 
   const renderFilterList = () => {

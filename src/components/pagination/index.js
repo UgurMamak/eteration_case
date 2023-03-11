@@ -1,5 +1,6 @@
 import React from 'react'
 import Pagination from 'react-bootstrap/Pagination';
+import uuid from 'react-uuid';
 
 export default function pagination({
   currentPage, //güncel sayfa
@@ -14,7 +15,7 @@ export default function pagination({
 
     if (totalPage < 7) {
       for (let i = 1; i <= totalPage; i++) {
-        list.push((<Pagination.Item key={i} onClick={() => onPageChange(i)} active={currentPage == i}>{i}</Pagination.Item>));
+        list.push((<Pagination.Item key={uuid()} onClick={() => onPageChange(i)} active={currentPage == i}>{i}</Pagination.Item>));
       }
       return list;
     }
@@ -24,7 +25,7 @@ export default function pagination({
       list.push((<Pagination.Ellipsis onClick={() => onPageChange(currentPage - 1)} />));
 
       for (let i = currentPage - 1; i < currentPage + 2; i++) {
-        list.push((<Pagination.Item key={i} onClick={() => onPageChange(i)} active={currentPage == i}>{i}</Pagination.Item>));
+        list.push((<Pagination.Item key={uuid()} onClick={() => onPageChange(i)} active={currentPage == i}>{i}</Pagination.Item>));
       }
 
       list.push((<Pagination.Ellipsis onClick={() => onPageChange(currentPage + 1)} />));
@@ -39,18 +40,18 @@ export default function pagination({
 
 
       for (let i = totalPage-4; i <= totalPage; i++) {
-        list.push((<Pagination.Item key={i} onClick={() => onPageChange(i)} active={currentPage == i}>{i}</Pagination.Item>));
+        list.push((<Pagination.Item key={uuid()} onClick={() => onPageChange(i)} active={currentPage == i}>{i}</Pagination.Item>));
       }
 
       return list;
     }
 
     for (let i = 1; i < 6; i++) {
-      list.push((<Pagination.Item key={i} onClick={() => onPageChange(i)} active={currentPage == i}>{i}</Pagination.Item>));
+      list.push((<Pagination.Item key={uuid()} onClick={() => onPageChange(i)} active={currentPage == i}>{i}</Pagination.Item>));
     }
 
-    list.push((<Pagination.Ellipsis key = "Ellipsis" onClick={() => onPageChange(currentPage + 1)} />));
-    list.push((<Pagination.Item  key={totalPage} onClick={() => onPageChange(totalPage)} active={currentPage == totalPage}>{totalPage}</Pagination.Item>));
+    list.push((<Pagination.Ellipsis key={uuid()} onClick={() => onPageChange(currentPage + 1)} />));
+    list.push((<Pagination.Item  key={uuid()} onClick={() => onPageChange(totalPage)} active={currentPage == totalPage}>{totalPage}</Pagination.Item>));
     return list;
   }
 
