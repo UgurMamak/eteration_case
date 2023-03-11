@@ -17,6 +17,9 @@ export default function List({ products }) {
   const itemPerPage = 12;
 
   const onPageChange = (pageNumber) => {
+    if (pageNumber < 1 || pageNumber > Math.ceil(totalCount / itemPerPage)) {
+      return;
+    }
     setCurrentPage(pageNumber);
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("page", pageNumber);
