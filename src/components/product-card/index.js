@@ -26,6 +26,8 @@ export default function ProductCard({ data }) {
           <span className="price">{price}</span>
         </div>
         <Card.Subtitle className="product-name mb-2">{data.name}</Card.Subtitle>
+        <Card.Subtitle className="product-name mb-2">model={data.model}</Card.Subtitle>
+        <Card.Subtitle className="product-name mb-2">brand={data.brand}</Card.Subtitle>
 
         <Button className='basket-btn' onClick={(e) => addToCart(e,data)} variant="primary">Add To Cart</Button>
       </Card.Body>

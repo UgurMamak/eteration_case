@@ -10,6 +10,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Filter from '../../components/filter';
 import Spinner from 'react-bootstrap/Spinner';
 import MiniBasket from '../../components/mini-basket';
+import Button from 'react-bootstrap/Button';
+
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -20,6 +22,8 @@ export default function Products() {
   const [currentPage, setCurrentPage] = useState(1);
   const totalCount = products.length;
   const itemPerPage = 12;
+
+  const [filterIsShow, setFİlterIsShow] = useState(false);
 
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -40,17 +44,23 @@ export default function Products() {
     setCurrentPage(1);
   }, [products]);
 
+
+  const filterMobileShowEvent = (isShow)=>{
+    console.log("EVENT RUNN");
+    setFİlterIsShow(isShow);
+  }
+
   if (products.length > 0) {
     const startIndex = (currentPage - 1) * itemPerPage;
     const endIndex = startIndex + itemPerPage;
     const currentProducts = products.slice(startIndex, endIndex);
-    //const currentProducts = [];
 
     return (
       <Container>
         <Row>
           <Col lg={2}>
-            <Filter />
+          <Button onClick={()=>filterMobileShowEvent(true)} variant="link">Filtrele</Button>
+          <Filter show={filterIsShow} showEvent={filterMobileShowEvent} />
           </Col>
           <Col lg={8}>
             <Container>
@@ -70,10 +80,6 @@ export default function Products() {
             <MiniBasket/>
           </Col>
         </Row>
-
-        {/* <Pagination currentPage={1} totalCount={totalCount} itemPerPage={itemPerPage} onPageChange={onPageChange} />
-        <Pagination currentPage={22} totalCount={totalCount} itemPerPage={itemPerPage} onPageChange={onPageChange} />
-        <Pagination currentPage={1} totalCount={30} itemPerPage={5} onPageChange={onPageChange} /> */}
       </Container>
     )
   }

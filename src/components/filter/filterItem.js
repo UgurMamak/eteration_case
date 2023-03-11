@@ -46,7 +46,7 @@ export default function FilterItem({
 
   return (
     <div className='filter__item'>
-      <span className='filter__titile'>{filter.title}</span>
+      <span className='filter__title'>{filter.title}</span>
       <Card className='filter__card'>
         {
           filter.searchable &&

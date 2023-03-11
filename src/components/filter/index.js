@@ -7,18 +7,25 @@ import Form from 'react-bootstrap/Form';
 import { useNavigate, useLocation } from 'react-router-dom';
 import filterItem from './filterItem';
 import uuid from 'react-uuid';
+import Button from 'react-bootstrap/Button';
 
-export default function Filter() {
+export default function Filter({ show, showEvent }) {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const { selectedFilters, filters } = useSelector(state => state.productReducer);
+  const [selectedChoices, setSelectedChoices] = useState(selectedFilters);
+
+
+  console.log('selectedChoices', selectedChoices);
 
   const checkboxFilterEvent = (e, filterName) => {
     const value = e.target.value;
     const isChecked = e.target.checked;
+    let tempSelectedFilters = { ...selectedChoices };
 
-    let tempSelectedFilters = { ...selectedFilters };
+    console.log(selectedChoices);
+    console.log("TEMP=", tempSelectedFilters);
 
     if (!tempSelectedFilters.hasOwnProperty(filterName)) {
       tempSelectedFilters = {
@@ -37,17 +44,25 @@ export default function Filter() {
         ...tempSelectedFilters,
         [filterName]: tempSelectedFilters[filterName].filter((v) => v !== value)
       };
-
     }
-    dispatch(updateSelectedFilters(tempSelectedFilters));
-    dispatch(getFilteredProducts());
 
+    dispatch(updateSelectedFilters(tempSelectedFilters));
+    setSelectedChoices(tempSelectedFilters);
+
+    if (window.innerWidth > 991) {
+      dispatch(getFilteredProducts());
+    }
+  }
+
+  const mobileFilterAction = () => {
+    dispatch(getFilteredProducts());
+    showEvent(false);
   }
 
   const radioFilterEvent = (e, filterName) => {
     const value = e.target.value;
     const isChecked = e.target.checked;
-    let tempSelectedFilters = { ...selectedFilters };
+    let tempSelectedFilters = { ...selectedChoices };
 
     if (!tempSelectedFilters.hasOwnProperty(filterName)) {
       tempSelectedFilters = {
@@ -55,7 +70,6 @@ export default function Filter() {
         [filterName]: []
       }
     }
-
 
     if (isChecked) {
       tempSelectedFilters = {
@@ -65,8 +79,10 @@ export default function Filter() {
     }
 
     dispatch(updateSelectedFilters(tempSelectedFilters));
-    dispatch(getFilteredProducts());
 
+    if (window.innerWidth > 991) {
+      dispatch(getFilteredProducts());
+    }
   }
 
   useEffect(() => {
@@ -80,6 +96,7 @@ export default function Filter() {
 
   useEffect(() => {
     setUrlParametre();
+    setSelectedChoices(selectedFilters);
   }, [selectedFilters]);
 
   const setUrlParametre = () => {
@@ -107,7 +124,6 @@ export default function Filter() {
     return obj;
   }
 
-
   const renderFilterList = () => {
     let list = filters.map((filter, filterIndex) => {
       const isSort = filter.filterName === 'sort'
@@ -126,10 +142,12 @@ export default function Filter() {
   }
 
   return (
-    <div className='filter'>
+    <div className={`filter ${show ? 'filter-open' : ''}`}>
+      <Button onClick={()=>showEvent(false)} variant="link"><i class="bi bi-x-lg"></i></Button>
       {
         renderFilterList()
       }
+      <Button onClick={mobileFilterAction} className='w-100' variant="primary">Filtrele</Button>{' '}
     </div>
   )
 }

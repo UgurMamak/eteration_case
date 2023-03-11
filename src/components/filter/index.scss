@@ -1,5 +1,9 @@
 .filter {
-  &_title {
+  transition:  ease all .3s;
+
+
+
+  &__title {
     color: #c8c4c4;
   }
 
@@ -64,5 +68,29 @@
       border: none;
       background-color: transparent;
     }
+  }
+
+  @media (max-width: 991px) {
+    width: 100%;
+    margin-bottom: 0;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: -100%;
+    bottom: 0;
+    padding: 10px;
+    overflow: auto;
+    background-color: #fff;
+
+    &__title {
+      padding: 5px;
+      font-size: 20px;
+      color: #000000;
+    }
+
+  }
+
+  &.filter-open{
+    left: 0;
   }
 }
