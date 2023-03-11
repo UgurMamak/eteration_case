@@ -8,7 +8,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useSelector } from 'react-redux';
 import SearchBox from '../search-box';
 import usePrice from '../../hooks/usePrice';
-import userIcon from './Profile.svg'
+import userIcon from './Profile.svg';
+import MiniBasket from '../mini-basket';
 
 export default function Header() {
   const { basket } = useSelector(state => state.basketReducer);
@@ -24,9 +25,9 @@ export default function Header() {
               <SearchBox />
             </Nav>
             <Nav >
-              <Nav.Link href="#">
-                <i className="bi bi-wallet"></i> {price}
-              </Nav.Link>
+              <NavDropdown className="basket-dropdown" title={<span><i className="bi bi-wallet"></i> {price}</span>}>
+                <MiniBasket/>
+              </NavDropdown>
               <Nav.Link href="#">
                 <span> <img src={userIcon} /> </span> Kerem
               </Nav.Link>

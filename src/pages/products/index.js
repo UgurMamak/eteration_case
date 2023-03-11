@@ -59,7 +59,7 @@ export default function Products() {
       <Container>
         <Row>
           <Col lg={2}>
-          <Button onClick={()=>filterMobileShowEvent(true)} variant="link">Filtrele</Button>
+          <Button className='d-lg-none' onClick={()=>filterMobileShowEvent(true)} variant="link">Filtrele</Button>
           <Filter show={filterIsShow} showEvent={filterMobileShowEvent} />
           </Col>
           <Col lg={8}>

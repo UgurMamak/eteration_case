@@ -143,11 +143,11 @@ export default function Filter({ show, showEvent }) {
 
   return (
     <div className={`filter ${show ? 'filter-open' : ''}`}>
-      <Button onClick={()=>showEvent(false)} variant="link"><i class="bi bi-x-lg"></i></Button>
+      <Button className='d-lg-none' onClick={()=>showEvent(false)} variant="link"><i class="bi bi-x-lg"></i></Button>
       {
         renderFilterList()
       }
-      <Button onClick={mobileFilterAction} className='w-100' variant="primary">Filtrele</Button>{' '}
+      <Button onClick={mobileFilterAction} className='w-100 d-lg-none' variant="primary">Filtrele</Button>{' '}
     </div>
   )
 }

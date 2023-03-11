@@ -29,4 +29,15 @@ $color-blue-ribbon: #2a59fe;
       margin-left: 100px;
     }
   }
+
+
+  .basket-dropdown{
+    background-color: transparent;
+    
+    .dropdown-menu{
+      padding: 10px;
+      min-width: 250px;
+    }
+  }
+
 }
