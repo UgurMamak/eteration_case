@@ -25,7 +25,7 @@ export default function Header() {
               <SearchBox />
             </Nav>
             <Nav >
-              <NavDropdown className="basket-dropdown" title={<span><i className="bi bi-wallet"></i> {price}</span>}>
+              <NavDropdown className="basket-dropdown" title={basket.basketItem.length === 0 ? '0.00' : <span><i className="bi bi-wallet"></i> {price}</span>}>
                 <MiniBasket/>
               </NavDropdown>
               <Nav.Link href="#">

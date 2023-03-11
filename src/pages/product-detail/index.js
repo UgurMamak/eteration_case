@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MiniBasket from '../../components/mini-basket';
 import usePrice from '../../hooks/usePrice';
+import Spinner from 'react-bootstrap/Spinner';
 
 export default function ProductDetail() {
   let { id } = useParams();
@@ -27,33 +28,42 @@ export default function ProductDetail() {
     dispatch(getProductById(id));
   }, []);
 
+
+  if(Object.keys(product).length>0){
+    return (
+      <Container>
+        <Row>
+          <Col lg={8}>
+            <Card className='product'>
+              <Row>
+                <Col xs={12} lg={6}>
+                  <Card.Img className='product__image' src={product.image} />
+                </Col>
+                <Col xs={12} lg={6}>
+                  <Card.Body>
+                    <Card.Title className='product__name'>{product.name}</Card.Title>
+                    <Card.Subtitle className="mb-2 product__price">{price}</Card.Subtitle>
+                    <Button className='w-100 mt-5' onClick={() => addToCart(product)} variant="primary">Add To Cart</Button>
+  
+                    <Card.Text className='product__desc'>
+                      {product.description}
+                    </Card.Text>
+                  </Card.Body>
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+          <Col lg={4}>
+            <MiniBasket />
+          </Col>
+        </Row>
+      </Container>
+    )
+  }
+
   return (
     <Container>
-      <Row>
-        <Col lg={8}>
-          <Card className='product'>
-            <Row>
-              <Col xs={12} lg={6}>
-                <Card.Img className='product__image' src={product.image} />
-              </Col>
-              <Col xs={12} lg={6}>
-                <Card.Body>
-                  <Card.Title className='product__name'>{product.name}</Card.Title>
-                  <Card.Subtitle className="mb-2 product__price">{price}</Card.Subtitle>
-                  <Button className='w-100 mt-5' onClick={() => addToCart(product)} variant="primary">Add To Cart</Button>
-
-                  <Card.Text className='product__desc'>
-                    {product.description}
-                  </Card.Text>
-                </Card.Body>
-              </Col>
-            </Row>
-          </Card>
-        </Col>
-        <Col lg={4}>
-          <MiniBasket />
-        </Col>
-      </Row>
+      <Spinner animation="border" />
     </Container>
   )
 }

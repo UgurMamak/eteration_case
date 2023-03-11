@@ -42,21 +42,26 @@ export default function Index() {
         </Card>
         <div className='mini-basket__title'>Checkout</div>
         <Card className='mini-basket__card'>
-        <Card.Body>
-          <Card.Subtitle className='total-price-container'>
-            <span className='total-price-title'>Total Price:</span>
-            <span className='total-price'>
-              <Price price={basket.basketTotalPrice} currency='TRY' region='tr-TR' />
-            </span>
-          </Card.Subtitle>
-          <Button className='w-100' href="#">Checkout</Button>{' '}
-        </Card.Body>
-      </Card>
+          <Card.Body>
+            <Card.Subtitle className='total-price-container'>
+              <span className='total-price-title'>Total Price:</span>
+              <span className='total-price'>
+                <Price price={basket.basketTotalPrice} currency='TRY' region='tr-TR' />
+              </span>
+            </Card.Subtitle>
+            <Button className='w-100' href="#">Checkout</Button>{' '}
+          </Card.Body>
+        </Card>
       </div>
     )
   }
 
-  return <>Loading</>
-
-
+  return (
+    <div className='mini-basket'>
+      <div className='mini-basket__title'>Cart</div>
+      <Card className='mini-basket__card'>
+        Sepet Boş
+      </Card>
+    </div>
+  );
 }
