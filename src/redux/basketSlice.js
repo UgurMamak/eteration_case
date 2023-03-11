@@ -1,21 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-const basket = {
-  basketItem: [
-    {
-      quantity: 1,
-      totalPrice:1,
-      product: {}
-    },
-    {
-      quantity: 3,
-      totalPrice:1,
-      product: {}
-    }
-  ],
-  basketTotalPrice: 200
-}
+import { createSlice } from '@reduxjs/toolkit';
 
 export const basketSlice = createSlice({
   name: 'basket',

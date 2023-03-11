@@ -110,16 +110,12 @@ export const productSlice = createSlice({
 
       // (product.brand == 'Tesla' || product.brand == 'Ford') && (product.model=='a1' || product.model=='a2')
       if (Object.keys(choices).length > 0) {
-
-
         if (choices['search'] && choices['search'].length > 0) {
           let searchTerm = choices['search'][0];
           productList = state.products.filter((item) => {
             return item.name.toLowerCase().includes(searchTerm.toLowerCase());
           });
         }
-
-
         filteredData = productList.filter(product => {
           let statusArr = [];
           for (let key in choices) {
