@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import Accordion from 'react-bootstrap/Accordion';
 import Form from 'react-bootstrap/Form';
 import uuid from 'react-uuid';
 import Card from 'react-bootstrap/Card';
 import InputGroup from 'react-bootstrap/InputGroup';
-
-
 
 export default function FilterItem({
   filter,

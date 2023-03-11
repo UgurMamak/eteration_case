@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilteredProducts, updateSelectedFilters } from '../../redux/productSlice';
 import FilterItem from './filterItem';
-import Accordion from 'react-bootstrap/Accordion';
-import Form from 'react-bootstrap/Form';
 import { useNavigate, useLocation } from 'react-router-dom';
-import filterItem from './filterItem';
 import uuid from 'react-uuid';
 import Button from 'react-bootstrap/Button';
 
@@ -16,16 +13,10 @@ export default function Filter({ show, showEvent }) {
   const { selectedFilters, filters } = useSelector(state => state.productReducer);
   const [selectedChoices, setSelectedChoices] = useState(selectedFilters);
 
-
-  console.log('selectedChoices', selectedChoices);
-
   const checkboxFilterEvent = (e, filterName) => {
     const value = e.target.value;
     const isChecked = e.target.checked;
     let tempSelectedFilters = { ...selectedChoices };
-
-    console.log(selectedChoices);
-    console.log("TEMP=", tempSelectedFilters);
 
     if (!tempSelectedFilters.hasOwnProperty(filterName)) {
       tempSelectedFilters = {
@@ -104,7 +95,6 @@ export default function Filter({ show, showEvent }) {
     searchParams.delete('page');
 
     for (let key in selectedFilters) {
-      console.log("for loop=", selectedFilters[key]);
       if (selectedFilters[key].length === 0) {
         searchParams.delete(key);
       } else {
@@ -143,7 +133,7 @@ export default function Filter({ show, showEvent }) {
 
   return (
     <div className={`filter ${show ? 'filter-open' : ''}`}>
-      <Button className='d-lg-none' onClick={()=>showEvent(false)} variant="link"><i class="bi bi-x-lg"></i></Button>
+      <Button className='d-lg-none' onClick={()=>showEvent(false)} variant="link"><i className="bi bi-x-lg"></i></Button>
       {
         renderFilterList()
       }

@@ -13,10 +13,7 @@ export default function Index() {
 
 
   const cartAction = (product, count) => {
-    console.log("COUNT DEĞERI", count, product);
-
     dispatch(setBasket({ product: product, count: count }));
-
   }
 
   const renderBasketItem = () => {

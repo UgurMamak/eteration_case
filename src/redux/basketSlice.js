@@ -31,16 +31,11 @@ export const basketSlice = createSlice({
       }
     },
     setBasket: (state, { payload }) => {
-
       let {product,count} =payload;
-      console.log(payload);
-
       let basket = { ...state.basket };
-
       let itemIndex = basket.basketItem.findIndex(item => item.product.id === product.id);
 
       if (itemIndex > -1) {
-        console.log(itemIndex > -1);
         basket.basketItem[itemIndex].quantity  += count;
         basket.basketItem[itemIndex].totalPrice=product.price*basket.basketItem[itemIndex].quantity;
 

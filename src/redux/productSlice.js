@@ -161,21 +161,17 @@ export const productSlice = createSlice({
 
         state.filteredProducts = filteredData;
       } else {
-        console.log("ELSEELSE Object.keys(choices).length > 0");
         state.filteredProducts = state.products;
       }
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getProducts.pending, (state, action) => {
-      console.log("pending")
     })
       .addCase(getProducts.fulfilled, (state, action) => {
-        console.log("fullfilled");
         state.products = action.payload;
       })
       .addCase(getProducts.rejected, (state) => {
-        console.log("rejected")
       })
       .addCase(getProductById.pending, (state) => { })
       .addCase(getProductById.fulfilled, (state, action) => {
