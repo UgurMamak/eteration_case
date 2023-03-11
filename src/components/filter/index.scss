@@ -1,0 +1,68 @@
+.filter {
+  &_title {
+    color: #c8c4c4;
+  }
+
+  &__item {
+    margin-bottom: 20px;
+  }
+
+  &__card {
+    padding: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    border-radius: 0;
+
+    .card-body {
+      padding: 0;
+      height: 105px;
+      overflow: auto;
+
+      &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #f1f1f1;
+      }
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #888;
+      }
+    }
+  }
+
+  &__element {
+    label {
+      font-weight: 400;
+      font-size: 14px;
+    }
+  }
+
+  .search-wrapper {
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.98),
+        rgba(255, 255, 255, 0.98)
+      ),
+      linear-gradient(0deg, rgba(42, 89, 254, 0.3), rgba(42, 89, 254, 0.3)),
+      #000000;
+
+    .bi-search {
+      color: #8b8787;
+    }
+    .input-group-text {
+      border-radius: 0;
+      border: none;
+      background-color: transparent;
+    }
+
+    .form-control {
+      border-radius: 0;
+      border: none;
+      background-color: transparent;
+    }
+  }
+}

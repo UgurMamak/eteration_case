@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Form from 'react-bootstrap/Form';
 import uuid from 'react-uuid';
-import { getFilteredProducts, updateSelectedFilters } from '../../redux/productSlice';
+import Card from 'react-bootstrap/Card';
+import InputGroup from 'react-bootstrap/InputGroup';
+
+
 
 export default function FilterItem({
-  eventKey,
-  children,
   filter,
   selectedFilters,
   handleChange
@@ -32,6 +33,7 @@ export default function FilterItem({
 
   let renderFilterItemList = filteredData.map((item) => (
     <Form.Check
+      className='filter__element'
       key={uuid()}
       label={item.title}
       name={filter.filterName}
@@ -43,19 +45,29 @@ export default function FilterItem({
     />));
 
   return (
-    <Accordion.Item eventKey={filter.filterName}>
-      <Accordion.Header>{filter.title}</Accordion.Header>
-      <Accordion.Body>
-        <Form.Control
-          type="search"
-          placeholder="Search"
-          className="me-2"
-          aria-label="Search"
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-        {renderFilterItemList}
-      </Accordion.Body>
-    </Accordion.Item>
+    <div className='filter__item'>
+      <span className='filter__titile'>{filter.title}</span>
+      <Card className='filter__card'>
+        {
+          filter.searchable &&
+          <InputGroup className="search-wrapper">
+          <InputGroup.Text id="basic-addon1">
+          <i className="bi bi-search"></i>
+          </InputGroup.Text>
+          <Form.Control
+            type="search"
+            placeholder="Search"
+            className="me-2"
+            aria-label="Search"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </InputGroup>
+        }
+        <Card.Body>
+          {renderFilterItemList}
+        </Card.Body>
+      </Card>
+    </div>
   )
 }

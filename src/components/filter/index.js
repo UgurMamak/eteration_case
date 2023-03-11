@@ -126,10 +126,10 @@ export default function Filter() {
   }
 
   return (
-    <Accordion defaultActiveKey="0">
+    <div className='filter'>
       {
         renderFilterList()
       }
-    </Accordion>
+    </div>
   )
 }
